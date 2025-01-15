@@ -21,7 +21,6 @@
       flavor = "tap-preferred";
       tapping-term-ms = <220>;
       quick-tap-ms = <0>;
-      global-quick-tap;
       bindings = <&kp>, <&kp>;
     };
   };
@@ -32,18 +31,17 @@
     default_layer {
       bindings = <
 // ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮          ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮
-// | TAB        | Q          | W          | E          | R          | T          |          | Y          | U          | I          | O          | P          | BSPC       |
+// |  TAB       |  Q         |  W         |  E         |  R         |  T         |          |  Y         |  U         | I          |  O         |  P         |  BSPC      |
      &kp TAB      &kp Q        &kp W        &kp E        &kp R       &kp T                    &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BSPC
 // ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
-// | CTRL       | LWR/A      | S          | D          | F          | G          |          | H          | J          | K          | L          | ;          | '          |
-//     &kp LCTRL   &lt 2 A       HRML(S       D,           F)           &kp G                   &kp H        HRMR(J,      K,           L)           &kp SEMI     &kp SQT
-     &kp LCTRL    &lt 2 A      &ht LCTRL S   &ht LGUI D  &ht LALT F   &kp G                   &kp H        &ht RALT J   &ht RGUI K  &ht RCTRL L   &kp SEMI     &kp SQT
+// |  CAPS      |  LWR/A     |  S         |  D         |  F         |  G         |          |  H         |  J         |  K         |  L         |  ;         |  '         |
+     &kp CAPS     &lt 2 A       HRML(S,       D,           F)          &kp G                   &kp H        HRMR(J,      K,           L)           &kp SEMI     &kp SQT
 // ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
-// | SHFT       | Z          | X          | C          | V          | B          |          | N          | M          | ,          | .          | /          | SHFT       |
+// |  SHFT      |  Z         |  X         |  C         |  V         |  B         |          |  N         |  M         |  ,         |  .         |  /         |  SHFT      |
      &kp LSHFT    &kp Z        &kp X        &kp C        &kp V        &kp B                   &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     &kp RSHFT
 // ╰────────────┴────────────┴────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┤────────────┤────────────┴────────────┴────────────╯
-//                                        | ESC        | LWR        | SPC        |          | ENT        | RSE        | DEL        |
-                                            &kp ESC      &mo 1        &kp SPACE               &kp RET      &mo 2        &kp DEL
+//                                        |  DEL       |  LWR       |  SPC       |          |  ENT       |  RSE       |  ESC       |
+                                            &kp DEL      &mo 1        &kp SPACE               &kp RET      &mo 2        &kp ESC
 //                                        ╰────────────┴────────────┴────────────╯          ╰────────────┴────────────┴────────────╯
       >;
     };
@@ -51,28 +49,36 @@
     lower_layer {
       bindings = <
 // ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮          ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮
-// |       |  !  |  @  |  #  |  $  |  %  |                       |  ^  |  &  |  *  |  (  |  )  |   \   |
-// |       |  1  |  2  |  3  |  4  |  5  |                       |  -  |  =  |  `  |  [  |  ]  |  "|"  |
-// | LSHFT |  6  |  7  |  8  |  9  |  0  |                       |  _  |  +  |  ~  |  {  |  }  | RSHFT |
-//                    | GUI |     | SPC |                        | ENT |     | ALT |
-   &trans    &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   	&kp CARET  &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp BSLH
-   &trans    &kp N1   &kp N2 &kp N3   &kp N4   &kp N5      	&kp MINUS  &kp EQUAL &kp GRAVE       &kp LBKT &kp RBKT &kp PIPE
-   &kp LSHFT &kp N6   &kp N7 &kp N8   &kp N9   &kp N0      	&kp UNDER  &kp PLUS  &kp TILDE       &kp LBRC &kp RBRC &kp RSHFT
-          &trans  &trans   &kp SPACE      		&kp RET  &trans   &kp RALT
+// |            |  !         |  @         |  #         |  $         |  %         |          |  ^         |  &         |  *         |  (         |  )         |  \         |
+     &trans       &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT   	          &kp CARET    &kp AMPS     &kp KP_MULTIPLY &kp LPAR  &kp RPAR     &kp BSLH
+// ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
+// |            |  1         |  2         |  3         |  4         |  5         |          |  -         |  =         |  `         |  [         |  ]         |  "|"       |
+     &trans       &kp N1       &kp N2       &kp N3       &kp N4       &kp N5      	          &kp MINUS    &kp EQUAL    &kp GRAVE    &kp LBKT     &kp RBKT     &kp PIPE
+// ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
+// |  LSHFT     |  6         |  7         |  8         |  9         |  0         |          |  _         |  +         |  ~         |  {         |  }         | RSHFT      |
+     &kp LSHFT    &kp N6       &kp N7       &kp N8       &kp N9       &kp N0      	          &kp UNDER    &kp PLUS     &kp TILDE    &kp LBRC     &kp RBRC     &kp RSHFT
+// ╰────────────┴────────────┴────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┤────────────┤────────────┴────────────┴────────────╯
+//                                        |            |            |  SPC       |          |  ENT       |            |            |
+                                            &trans       &trans       &kp SPACE      		      &kp RET       &trans      &trans
+//                                        ╰────────────┴────────────┴────────────╯          ╰────────────┴────────────┴────────────╯
       >;
     };
 
     raise_layer {
-// -----------------------------------------------------------------------------------------
-// |      |  F1 |  F2  |  F3  |  F4  |     |  	                | HOME| PG_UP | PG_DN | END   |      | DEL  |
-// | CTRL |  F5 |  F6  |  F7  |  F8  |     |                    | LFT | DWN   |  UP   | RGT   |      | CTRL |
-// | SHFT |  F9 |  F10 | F11  |  F12 |     |                    | ZMK |       |       |       |      | SHFT |
-//                     | GUI  |      | SPC |                    |     |       | ALT |
       bindings = <
-   &trans    &kp F1   &kp F2   &kp F3   &kp F4   &trans         &kp HOME  &kp PG_UP  &kp PG_DN  &kp END    &trans   &kp DEL        
-   &kp LCTRL &kp F5   &kp F6   &kp F7   &kp F8   &trans         &kp LEFT  &kp DOWN   &kp UP     &kp RIGHT  &trans   &kp RCTRL
-   &kp LSHFT &kp F9   &kp F10  &kp F11  &kp F12   &trans        &trans    &trans     &trans     &trans     &trans   &kp RSHFT
-        &trans   &trans   &kp SPACE           &kp RET   &trans    &kp RALT
+// ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮          ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮
+// |            |  F1        |  F2        |  F3        |  F4        |            |  	      |  HOME      |  PG_UP     |  PG_DN     |  END       |            |            |
+     &trans       &kp F1       &kp F2       &kp F3       &kp F4       &trans                  &kp HOME     &kp PG_UP    &kp PG_DN    &kp END      &trans       &trans        
+// ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
+// |  CTRL      |  F5        |  F6        |  F7        |  F8        |            |          |  LFT       |  DWN       |  UP        |  RGT       |            |  CTRL      |
+     &kp LCTRL    &kp F5       &kp F6       &kp F7       &kp F8       &trans                  &kp LEFT     &kp DOWN     &kp UP       &kp RIGHT    &trans       &kp RCTRL
+// ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
+// |  LSHFT     |  F9        |  F10       |  F11       |  F12       |            |          |            |            |            |            |            |  RSHFT     |
+     &kp LSHFT    &kp F9       &kp F10      &kp F11      &kp F12      &trans                  &trans       &trans       &trans       &trans       &trans       &kp RSHFT
+// ╰────────────┴────────────┴────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┤────────────┤────────────┴────────────┴────────────╯
+//                                        |            |            |  SPC       |          |            |            |  ALT       |
+                                            &trans        &trans      &kp SPACE               &kp RET      &trans       &kp RALT
+//                                        ╰────────────┴────────────┴────────────╯          ╰────────────┴────────────┴────────────╯
       >;
     };
   };
