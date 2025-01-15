@@ -8,64 +8,72 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
+// Home row mods macro
+#define HRML(k2,k3,k4) &ht LCTRL k2  &ht LGUI k3  &ht LALT k4
+#define HRMR(k1,k2,k3) &ht RALT k1   &ht RGUI k2  &ht RCTRL k3
 
 / {
-        behaviors {
-            ht: hold_tap {
-                label = "hold_tap";
-                compatible = "zmk,behavior-hold-tap";
-                #binding-cells = <2>;
-                flavor = "tap-preferred";
-                tapping-term-ms = <220>;
-                quick-tap-ms = <150>;
-                global-quick-tap;
-                bindings = <&kp>, <&kp>;
-            };
-        };
+  behaviors {
+    ht: hold_tap {
+      label = "hold_tap";
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "tap-preferred";
+      tapping-term-ms = <220>;
+      quick-tap-ms = <0>;
+      global-quick-tap;
+      bindings = <&kp>, <&kp>;
+    };
+  };
 
-        keymap {
-                compatible = "zmk,keymap";
+  keymap {
+    compatible = "zmk,keymap";
 
-                default_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q      |  W  |  E  |  R  |  T  |                   |  Y  |  U   |  I  |  O  |  P  | BSPC |
-// | CTRL |  LWR/A  |  S  |  D  |  F  |  G  |                   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z      |  X  |  C  |  V  |  B  |                   |  N  |  M   |  ,  |  .  |  /  | SHFT  |
-//                        | ESC | LWR | SPC |                   | ENT | RSE  | DEL |
-                        bindings = <
-   &kp TAB   &kp Q    &kp W       &kp E         &kp R       &kp T       &kp Y  &kp U       &kp I        &kp O       &kp P     &kp BSPC
-   &kp LCTRL &lt 2 A  &ht LALT S  &ht LCTRL D   &ht LGUI F  &kp G       &kp H  &ht RGUI J  &ht RCTRL K  &ht RALT L  &kp SEMI  &kp SQT
-   &kp LSHFT &kp Z    &kp X       &kp C         &kp V       &kp B       &kp N  &kp M       &kp COMMA    &kp DOT     &kp FSLH  &kp RSHFT
-                                        &kp ESC  &mo 1  &kp SPACE       &kp RET  &mo 2  &kp DEL
-                        >;
-                };
+    default_layer {
+      bindings = <
+// ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮          ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮
+// | TAB        | Q          | W          | E          | R          | T          |          | Y          | U          | I          | O          | P          | BSPC       |
+     &kp TAB      &kp Q        &kp W        &kp E        &kp R       &kp T                    &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BSPC
+// ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
+// | CTRL       | LWR/A      | S          | D          | F          | G          |          | H          | J          | K          | L          | ;          | '          |
+//     &kp LCTRL   &lt 2 A       HRML(S       D,           F)           &kp G                   &kp H        HRMR(J,      K,           L)           &kp SEMI     &kp SQT
+     &kp LCTRL    &lt 2 A      &ht LCTRL S   &ht LGUI D  &ht LALT F   &kp G                   &kp H        &ht RALT J   &ht RGUI K  &ht RCTRL L   &kp SEMI     &kp SQT
+// ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┼────────────┼────────────┼────────────┤────────────┤
+// | SHFT       | Z          | X          | C          | V          | B          |          | N          | M          | ,          | .          | /          | SHFT       |
+     &kp LSHFT    &kp Z        &kp X        &kp C        &kp V        &kp B                   &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     &kp RSHFT
+// ╰────────────┴────────────┴────────────┼────────────┼────────────┤────────────┤          ├────────────┼────────────┤────────────┤────────────┴────────────┴────────────╯
+//                                        | ESC        | LWR        | SPC        |          | ENT        | RSE        | DEL        |
+                                            &kp ESC      &mo 1        &kp SPACE               &kp RET      &mo 2        &kp DEL
+//                                        ╰────────────┴────────────┴────────────╯          ╰────────────┴────────────┴────────────╯
+      >;
+    };
 
-                lower_layer {
-// -----------------------------------------------------------------------------------------
+    lower_layer {
+      bindings = <
+// ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮          ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮
 // |       |  !  |  @  |  #  |  $  |  %  |                       |  ^  |  &  |  *  |  (  |  )  |   \   |
 // |       |  1  |  2  |  3  |  4  |  5  |                       |  -  |  =  |  `  |  [  |  ]  |  "|"  |
 // | LSHFT |  6  |  7  |  8  |  9  |  0  |                       |  _  |  +  |  ~  |  {  |  }  | RSHFT |
 //                    | GUI |     | SPC |                        | ENT |     | ALT |
-                        bindings = <
    &trans    &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   	&kp CARET  &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp BSLH
    &trans    &kp N1   &kp N2 &kp N3   &kp N4   &kp N5      	&kp MINUS  &kp EQUAL &kp GRAVE       &kp LBKT &kp RBKT &kp PIPE
    &kp LSHFT &kp N6   &kp N7 &kp N8   &kp N9   &kp N0      	&kp UNDER  &kp PLUS  &kp TILDE       &kp LBRC &kp RBRC &kp RSHFT
-                      &trans  &trans   &kp SPACE      		&kp RET  &trans   &kp RALT
-                        >;
-                };
+          &trans  &trans   &kp SPACE      		&kp RET  &trans   &kp RALT
+      >;
+    };
 
-                raise_layer {
+    raise_layer {
 // -----------------------------------------------------------------------------------------
 // |      |  F1 |  F2  |  F3  |  F4  |     |  	                | HOME| PG_UP | PG_DN | END   |      | DEL  |
 // | CTRL |  F5 |  F6  |  F7  |  F8  |     |                    | LFT | DWN   |  UP   | RGT   |      | CTRL |
 // | SHFT |  F9 |  F10 | F11  |  F12 |     |                    | ZMK |       |       |       |      | SHFT |
 //                     | GUI  |      | SPC |                    |     |       | ALT |
-                        bindings = <
+      bindings = <
    &trans    &kp F1   &kp F2   &kp F3   &kp F4   &trans         &kp HOME  &kp PG_UP  &kp PG_DN  &kp END    &trans   &kp DEL        
    &kp LCTRL &kp F5   &kp F6   &kp F7   &kp F8   &trans         &kp LEFT  &kp DOWN   &kp UP     &kp RIGHT  &trans   &kp RCTRL
    &kp LSHFT &kp F9   &kp F10  &kp F11  &kp F12   &trans        &trans    &trans     &trans     &trans     &trans   &kp RSHFT
-                          &trans   &trans   &kp SPACE           &kp RET   &trans    &kp RALT
-                        >;
-                };
-        };
+        &trans   &trans   &kp SPACE           &kp RET   &trans    &kp RALT
+      >;
+    };
+  };
 };
